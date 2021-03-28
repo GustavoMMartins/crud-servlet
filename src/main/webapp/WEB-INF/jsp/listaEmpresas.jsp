@@ -6,6 +6,7 @@
 <c:url value="/editaEmpresa" var="edita"/>
 <c:url value="/removeEmpresa" var="remove"/>
 
+<c:set var="contador" value="${0}"/>
 
 <!DOCTYPE html>
 <html>
@@ -14,16 +15,42 @@
 </head>
 <body>
 
-<h3>Lista Empresas</h3>
+<div class="row mt-5">
+	<h3 class="col-12">Empresas cadastradas:</h3>
+</div>
 
-	<a href="${formularNovaEmpresa}">Adicionar Empresa</a>
-
-	<ul>
-		<c:forEach items="${empresas}" var="empresa">
-			<fmt:formatDate value="${empresa.dataFundacao}" pattern="dd/MM/yyyy" var="dataFormatada"/>
-			<li>${empresa.nome}, ${dataFormatada} <a href="${edita}?id=${empresa.id}">Editar</a> - <a href="${remove}?id=${empresa.id}">Remover</a></li>
-		</c:forEach>
-	</ul>
+	<div class="row col-12">
+		<a class="btn btn-outline-primary mt-4" href="${formularNovaEmpresa}">Adicionar Empresa</a>
+	</div>
+	
+	
+	<div class="row mt-5">
+		<div class="col-12">
+			<table class="table table-bordered">
+			  <thead>
+			    <tr>
+			      <th scope="col" class="text-center">ID</th>
+			      <th scope="col" class="text-center">Nome</th>
+			      <th scope="col" class="text-center">Data</th>
+			      <th scope="col" class="text-center">Editar</th>
+			      <th scope="col" class="text-center">Excluir</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+				  <c:forEach items="${empresas}" var="empresa">				  	
+				  	<fmt:formatDate value="${empresa.dataFundacao}" pattern="dd/MM/yyyy" var="dataFormatada"/>
+				    <tr>
+				      <th scope="row" class="text-center pt-3">${contador+1}</th>
+				      <td class="text-center pt-3">${empresa.nome}</td>
+				      <td class="text-center pt-3">${dataFormatada}</td>
+				      <td class="text-center"><a class="col-8 btn btn-outline-primary" href="${edita}?id=${empresa.id}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+				      <td class="text-center"><a class="col-8 btn btn-outline-primary" href="${remove}?id=${empresa.id}"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+				    </tr>
+				    <c:set var="contador" value="${contador+1}"/>
+			    </c:forEach> 
+			</table>
+		</div>	
+	</div>
 
 </body>
 </html>

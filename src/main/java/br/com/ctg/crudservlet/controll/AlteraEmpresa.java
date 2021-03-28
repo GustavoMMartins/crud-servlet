@@ -33,7 +33,6 @@ public class AlteraEmpresa extends HttpServlet {
 				dataFundacaoFormatado = sdf.parse(dataFundacao);				
 			}
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
