@@ -1,6 +1,7 @@
 package br.com.ctg.crudservlet.controll;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -11,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.ctg.crudservlet.model.Banco;
 import br.com.ctg.crudservlet.model.Empresa;
+import br.com.ctg.crudservlet.persistence.EmpresaDAO;
 
 
 @WebServlet("/cadastraEmpresa")
@@ -36,11 +37,16 @@ public class CadastraEmpresa extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		Banco banco = new Banco();
 		
 		Empresa emp = new Empresa(nome, dataFundacaoFormatada);
 		
-		banco.adicionaEmpresa(emp);
+		EmpresaDAO dao = new EmpresaDAO();
+		
+		try {
+			dao.grava(emp);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		response.sendRedirect("/crud-servlet");
 		

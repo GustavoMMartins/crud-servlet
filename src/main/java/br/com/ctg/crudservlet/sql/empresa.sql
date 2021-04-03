@@ -1,0 +1,1 @@
+create table empresa(id int auto_increment, nome varchar(50), dataFundacao date, primary key(id));

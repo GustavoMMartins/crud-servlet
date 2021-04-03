@@ -19,6 +19,10 @@ public class Empresa {
 		this.dataFundacao = dataFundacao;
 	}
 		
+	public Empresa() {
+		
+	}
+
 	@Override
 	public String toString() {
 		return "Empresa [id=" + id + ", nome=" + nome + ", dataFundacao=" + dataFundacao + "]";

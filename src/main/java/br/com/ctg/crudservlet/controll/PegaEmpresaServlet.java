@@ -1,6 +1,7 @@
 package br.com.ctg.crudservlet.controll;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,8 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.ctg.crudservlet.model.Banco;
 import br.com.ctg.crudservlet.model.Empresa;
+import br.com.ctg.crudservlet.persistence.EmpresaDAO;
 
 /**
  * Servlet implementation class PegaEmpresaServlet
@@ -23,12 +24,15 @@ public class PegaEmpresaServlet extends HttpServlet {
 			
 		Long id = Long.valueOf(request.getParameter("id"));
 		
-		Banco banco = new Banco();
-		
-		Empresa emp = banco.getEmpresaById(id);
-		
-		request.setAttribute("empresa", emp);
-		
+		EmpresaDAO dao = new EmpresaDAO();	
+	
+		try {
+			Empresa emp = dao.getEmpresaById(id);
+			request.setAttribute("empresa", emp);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+				
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/jsp/formAlteraEmpresa.jsp");
 		rd.forward(request, response);
 		
